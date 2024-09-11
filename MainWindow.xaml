@@ -1,0 +1,116 @@
+﻿<Window x:Class="CMCS.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Contract Monthly Claim System" Height="600" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Top Menu -->
+        <Menu Grid.Row="0">
+            <MenuItem Header="File">
+                <MenuItem Header="Exit"/>
+            </MenuItem>
+            <MenuItem Header="Claims">
+                <MenuItem Header="Submit New Claim"/>
+                <MenuItem Header="View My Claims"/>
+            </MenuItem>
+            <MenuItem Header="Admin">
+                <MenuItem Header="Approve Claims"/>
+                <MenuItem Header="Manage Users"/>
+            </MenuItem>
+        </Menu>
+
+        <!-- Main Content Area -->
+        <TabControl Grid.Row="1">
+            <!-- Dashboard Tab -->
+            <TabItem Header="Dashboard">
+                <Grid Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" Text="Welcome, [User Name]" FontSize="20" FontWeight="Bold"/>
+                    <StackPanel Grid.Row="1" Margin="0,20,0,0">
+                        <TextBlock Text="Recent Claims:" FontWeight="Bold"/>
+                        <ListBox Height="200" Margin="0,10,0,0">
+                            <ListBoxItem>Claim #1234 - Web Development (20 hours) - Pending</ListBoxItem>
+                            <ListBoxItem>Claim #1235 - Database Design (15 hours) - Approved</ListBoxItem>
+                            <ListBoxItem>Claim #1236 - Software Engineering (25 hours) - Rejected</ListBoxItem>
+                        </ListBox>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+
+            <!-- Submit Claim Tab -->
+            <TabItem Header="Submit Claim">
+                <Grid Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Row="0" Grid.ColumnSpan="2" Text="Submit New Claim" FontSize="20" FontWeight="Bold" Margin="0,0,0,20"/>
+
+                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Course:" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                    <ComboBox Grid.Row="1" Grid.Column="1" Margin="0,5">
+                        <ComboBoxItem>Web Development</ComboBoxItem>
+                        <ComboBoxItem>Database Design</ComboBoxItem>
+                        <ComboBoxItem>Software Engineering</ComboBoxItem>
+                    </ComboBox>
+
+                    <TextBlock Grid.Row="2" Grid.Column="0" Text="Hours Worked:" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                    <TextBox Grid.Row="2" Grid.Column="1" Margin="0,5"/>
+
+                    <TextBlock Grid.Row="3" Grid.Column="0" Text="Supporting Document:" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                    <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal" Margin="0,5">
+                        <TextBox Width="200" IsReadOnly="True"/>
+                        <Button Content="Browse" Margin="10,0,0,0"/>
+                    </StackPanel>
+
+                    <Button Grid.Row="4" Grid.ColumnSpan="2" Content="Submit Claim" Width="120" Margin="0,20,0,0" HorizontalAlignment="Right"/>
+                </Grid>
+            </TabItem>
+
+            <!-- Approve Claims Tab (for Programme Coordinators and Academic Managers) -->
+            <TabItem Header="Approve Claims">
+                <Grid Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0" Text="Claims Pending Approval" FontSize="20" FontWeight="Bold" Margin="0,0,0,20"/>
+
+                    <DataGrid Grid.Row="1" AutoGenerateColumns="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Claim ID" Binding="{Binding ClaimId}"/>
+                            <DataGridTextColumn Header="Lecturer" Binding="{Binding Lecturer}"/>
+                            <DataGridTextColumn Header="Course" Binding="{Binding Course}"/>
+                            <DataGridTextColumn Header="Hours" Binding="{Binding Hours}"/>
+                            <DataGridTemplateColumn Header="Actions">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Button Content="Approve" Margin="0,0,5,0"/>
+                                            <Button Content="Reject"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>
